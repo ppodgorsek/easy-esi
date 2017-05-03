@@ -5,9 +5,9 @@ It is fairly common for websites to have generated content. It could be because 
 When it comes to processing ESI fragments while caching HTTP responses, Varnish and Akamai are two of the best-known options. Unfortunately, it is not always possible for developers to use them on a local environment.
 
 Easy ESI was created to avoid this kind of problem.
-It allows to process ESI and BSI fragments directly in the browser, without installing any third-party tool.
+It allows to process ESI and CSI fragments directly in the browser, without installing any third-party tool.
 
-Both ESI and BSI requests will always be done using GET methods, as reverse-proxies would do.
+Both ESI and CSI requests will always be done using GET methods, as reverse-proxies would do.
 
 ## Edge-Side Includes (ESI)
 
@@ -17,16 +17,16 @@ More information can be found here: [Wikipedia: Edge Side Includes](https://en.w
 
 Caching these ESI fragments will only be done according to the `Cache-Control` HTTP header that might be set. This can't leverage the default browser behaviour, as browsers will cache Ajax responses regardless of the cache headers.
 
-## Browser-Side Includes (BSI)
+## Client-Side Includes (CSI)
 
 Generally, user-related information shouldn't be stored in public caches but it is a pity to lose the benefits of a shared cache simply because of that.
 
-Some scenarios require a shared cache taking into consideration personal data, this is why Browser-Side Includes were introduced.
+Some scenarios require a shared cache taking into consideration personal data, this is why Client-Side Includes were introduced.
 
-These BSI fragments are only processed by browsers, in an asynchronous manner.
+These CSI fragments are only processed by browsers, in an asynchronous manner.
 This allows to fetch a cached page, then to let the browser place any user-related information in it.
 
-To avoid any flickering on the page, BSI fragments are cached locally on the browser in order to display temporary data while the contents are being fetched.
+To avoid any flickering on the page, CSI fragments are cached locally on the browser in order to display temporary data while the contents are being fetched.
 
 Setting the `Cache-Control` HTTP header for those fragments will further improve the performance of this mechanism.
 
@@ -34,7 +34,7 @@ Setting the `Cache-Control` HTTP header for those fragments will further improve
 
 Simply copy `easy-esi.js` into your project and declare it in your HTML pages, for example:
 
-    <script type="text/javascript" src="/js/easy-esi-1.0.0-min.js"/>
+    <script type="text/javascript" src="/js/easy-esi-min.js"/>
 
 jQuery must also be present. This project has been tested against jQuery >= 3.2.1 but older versions might work too.
 
@@ -54,8 +54,8 @@ Edge-Side Includes can be defined in several manners:
 * While this one might not be useful in the browser itself, it can be useful on tools such as Akamai.
 * Support for it was provided for compatibility reasons. 
 
-### Defining BSI fragments
+### Defining CSI fragments
 
-Browser-Side Includes can be defined in the same way as ESI fragments, only the namespace changes. For example:
+Client-Side Includes can be defined in the same way as ESI fragments, only the namespace changes. For example:
 
-    <bsi:include src="/my-personal-data"/>
+    <csi:include src="/my-personal-data"/>
