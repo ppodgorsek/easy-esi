@@ -25,11 +25,11 @@
 
 jQuery.fn.reverse = [].reverse;
 
-// Disable the Browser-Side Includes processing by setting: processBsi = false
+// Disable the Client-Side Includes processing by setting: processCsi = false
 // Disable the Server-Side Includes processing by setting: processEsi = false
 
 asynchronousTimeout = 10000;
-processBsi = true;
+processCsi = true;
 processEsi = true;
 
 $(document).ready(function() {
@@ -39,9 +39,9 @@ $(document).ready(function() {
 
 function parsePageFragmentTags(element) {
 
-	if (processBsi) {
-		// Browser-Side Includes
-		parsePageFragmentTagsWithNamespace(element,"bsi",true);
+	if (processCsi) {
+		// Client-Side Includes
+		parsePageFragmentTagsWithNamespace(element,"csi",true);
 	}
 
 	if (processEsi) {
